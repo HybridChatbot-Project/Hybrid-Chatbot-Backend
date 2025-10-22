@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api-hybridchatbot
+spring:
+  application:
+    name: bc_hybridchatbot
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hybridchatbot?currentSchema=hybridchatbot
+    driver-class-name: org.postgresql.Driver
+    username: chatbot
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        ejb:
+          interceptor-org
+        format_sql: true
+        globally_quoted_identifiers: true
+  mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    ##ype-aliases-package: ##sistemaliga.org.pe.ms_crm.domain.mapper
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
