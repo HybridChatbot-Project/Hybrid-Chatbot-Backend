@@ -22,6 +22,11 @@ public class UserService {
         return new BaseResponse<>(200, "OK", Optional.of(users));
     }
 
+    public BaseResponse<?> getUserById(Integer id) {
+        Optional<User> user = userRepository.findById(id);
+        return new BaseResponse<>(200, "OK", Optional.of(user));
+    }
+
     @Transactional
     public BaseResponse<?> updateUser(Integer id, UserRequest userRequest) {
         User existed =  userRepository.findById(id).orElse(null);

@@ -1,5 +1,6 @@
 package com.hybridchatbot.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -15,5 +16,7 @@ import lombok.NoArgsConstructor;
 public class Genre {
     @Id
     private Integer id;
-    private String name;
+    private String genre;
+    @Column(name = "isactive")
+    private Integer isActive;
 }

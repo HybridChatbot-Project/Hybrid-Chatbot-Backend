@@ -27,6 +27,16 @@ public class UserController {
         }
     }
 
+    @GetMapping("/find-user/{id}")
+    public ResponseEntity<?> findUserById(@PathVariable("id") Integer id) {
+        try {
+            BaseResponse<?> user = userService.getUserById(id);
+            return ResponseEntity.ok().body(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") Integer id, @Validated @RequestBody UserRequest userRequest) {
         try {
