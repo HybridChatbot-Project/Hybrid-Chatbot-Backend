@@ -15,4 +15,6 @@ public class UserRequest {
     String email;
     LocalDateTime birthDate;
     Integer phoneNumber;
+    String password;
+    Integer gender;
 }

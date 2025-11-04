@@ -26,3 +26,6 @@ spring:
       org:
         hibernate:
           SQL: DEBUG
+jwt:
+  secret: SecurityHibridChatbotSecretKeyJwt1
+  expiration: 86400000
