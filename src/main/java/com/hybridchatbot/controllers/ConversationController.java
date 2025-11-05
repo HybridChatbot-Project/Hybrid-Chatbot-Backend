@@ -23,4 +23,14 @@ public class ConversationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @PutMapping("/close-conversation/{id}")
+    public ResponseEntity<?> updateConversation(@PathVariable("id") Integer id) {
+        try {
+            BaseResponse<?> modificado = conversationService.updateConversation(id);
+            return ResponseEntity.ok().body(modificado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }

@@ -20,4 +20,6 @@ public class Message {
     private Integer conversationId;
     @Column(name = "sequencedata")
     private Integer sequence;
+    @Column(name="sendertype")
+    private String senderType;
 }

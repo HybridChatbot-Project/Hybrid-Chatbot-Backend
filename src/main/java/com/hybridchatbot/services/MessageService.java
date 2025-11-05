@@ -18,4 +18,8 @@ public class MessageService {
         List<Message> messages = messageRepository.findByConversationId(conversationId);
         return new BaseResponse<>(200, "Ok", Optional.of(messages));
     }
+
+    public String findFirstLine(Integer conversationId){
+        return messageRepository.findFirstLine(conversationId);
+    }
 }

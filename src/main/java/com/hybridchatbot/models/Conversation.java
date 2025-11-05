@@ -26,4 +26,6 @@ public class Conversation {
     private Integer grade;
     @Column(name = "usercomment")
     private String comment;
+    @Column(name = "isclosed")
+    private Boolean isClosed;
 }

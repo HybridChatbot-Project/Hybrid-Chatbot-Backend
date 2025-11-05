@@ -22,4 +22,14 @@ public class MessageController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
+    @GetMapping("/find-first-line/{id}")
+    public ResponseEntity<?> findFirstLine(@PathVariable("id") Integer id) {
+        try {
+            String line = messageService.findFirstLine(id);
+            return ResponseEntity.ok().body(line);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }

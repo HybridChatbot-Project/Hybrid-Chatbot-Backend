@@ -1,11 +1,14 @@
 package com.hybridchatbot.services;
 
+import com.hybridchatbot.models.Genre;
 import com.hybridchatbot.models.User;
+import com.hybridchatbot.repository.GenreRepository;
 import com.hybridchatbot.repository.UserRepository;
 import com.hybridchatbot.request.UserRequest;
 import com.hybridchatbot.response.BaseResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,6 +19,11 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private GenreRepository genreRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public BaseResponse<?> listUsers() {
         List<User> users = userRepository.findAllByIsActive(1);
@@ -33,10 +41,17 @@ public class UserService {
         if (existed == null) {
             return new BaseResponse<>(400, "User not found", null);
         }
+        Genre genre = genreRepository.findById(userRequest.getGender()).orElse(null);
         existed.setFirstName(userRequest.getFirstName());
         existed.setLastName(userRequest.getLastName());
         existed.setEmail(userRequest.getEmail());
         existed.setUpdatedDate(LocalDateTime.now());
+        existed.setGenre(genre);
+        existed.setPhoneNumber(userRequest.getPhoneNumber());
+        existed.setBirthDate(userRequest.getBirthDate());
+        if (userRequest.getPassword() != null) {
+            existed.setUserPassword(passwordEncoder.encode(userRequest.getPassword()));
+        }
 
         User modified = userRepository.save(existed);
         return new BaseResponse<>(200, "User updated correctly", Optional.of(modified));
