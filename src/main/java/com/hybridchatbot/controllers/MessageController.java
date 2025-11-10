@@ -1,5 +1,7 @@
 package com.hybridchatbot.controllers;
 
+import com.hybridchatbot.models.Message;
+import com.hybridchatbot.request.MessageRequest;
 import com.hybridchatbot.response.BaseResponse;
 import com.hybridchatbot.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,16 @@ public class MessageController {
         try {
             String line = messageService.findFirstLine(id);
             return ResponseEntity.ok().body(line);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/process-message")
+    public ResponseEntity<?> processMessage(@RequestBody MessageRequest messageRequest) {
+        try {
+            BaseResponse<?> respuesta = messageService.processMessage(messageRequest);
+            return ResponseEntity.ok().body(respuesta);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

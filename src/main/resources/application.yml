@@ -29,3 +29,6 @@ spring:
 jwt:
   secret: SecurityHibridChatbotSecretKeyJwt1
   expiration: 86400000
+
+flask:
+  chatbot-url: http://localhost:5001/process-message
