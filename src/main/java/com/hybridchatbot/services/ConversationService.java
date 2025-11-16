@@ -39,7 +39,7 @@ public class ConversationService {
         newConversation.setUserId(userId);
         newConversation.setIsClosed(false);
         newConversation.setIsActive(1);
-        newConversation.setCreateDate(LocalDateTime.now().toLocalDate().atStartOfDay());
+        newConversation.setCreateDate(LocalDateTime.now());
         conversationRepository.save(newConversation);
         return new BaseResponse<>(200, "Ok", Optional.of(newConversation));
     }
