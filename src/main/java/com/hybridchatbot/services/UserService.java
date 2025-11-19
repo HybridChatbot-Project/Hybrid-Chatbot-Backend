@@ -4,6 +4,7 @@ import com.hybridchatbot.models.Genre;
 import com.hybridchatbot.models.User;
 import com.hybridchatbot.repository.GenreRepository;
 import com.hybridchatbot.repository.UserRepository;
+import com.hybridchatbot.request.UserImageRequest;
 import com.hybridchatbot.request.UserRequest;
 import com.hybridchatbot.response.BaseResponse;
 import jakarta.transaction.Transactional;
@@ -67,5 +68,16 @@ public class UserService {
         User deleted = userRepository.save(existed);
 
         return new BaseResponse<>(200, "User deleted correctly", Optional.of(deleted));
+    }
+
+    public BaseResponse<?> updateImage(UserImageRequest userImageRequest) {
+        User existed =  userRepository.findById(userImageRequest.getUserId()).orElse(null);
+        if (existed == null) {
+            throw new RuntimeException("User not found");
+        }
+        existed.setProfileImage(userImageRequest.getImage());
+        existed.setPublicImageId(userImageRequest.getImageId());
+        userRepository.save(existed);
+        return new BaseResponse<>(200, "User updated correctly", Optional.of(existed));
     }
 }

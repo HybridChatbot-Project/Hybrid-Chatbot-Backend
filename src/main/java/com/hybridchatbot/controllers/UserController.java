@@ -1,6 +1,7 @@
 package com.hybridchatbot.controllers;
 
 import com.hybridchatbot.models.User;
+import com.hybridchatbot.request.UserImageRequest;
 import com.hybridchatbot.request.UserRequest;
 import com.hybridchatbot.response.BaseResponse;
 import com.hybridchatbot.services.UserService;
@@ -50,6 +51,16 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id) {
         try {
             BaseResponse<?> actualizacion = userService.deleteUser(id);
+            return ResponseEntity.ok().body(actualizacion);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-image")
+    public ResponseEntity<?> updateImage(@Validated @RequestBody UserImageRequest  userImageRequest) {
+        try {
+            BaseResponse<?> actualizacion = userService.updateImage(userImageRequest);
             return ResponseEntity.ok().body(actualizacion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

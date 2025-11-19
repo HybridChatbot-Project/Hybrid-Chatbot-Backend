@@ -17,4 +17,6 @@ public class UserRequest {
     Integer phoneNumber;
     String password;
     Integer gender;
+    String profileImageUrl;
+    String profileImagePublicId;
 }

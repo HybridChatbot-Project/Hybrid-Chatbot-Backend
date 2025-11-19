@@ -37,4 +37,8 @@ public class User {
     private LocalDateTime updatedDate;
     @Column(name = "isactive")
     private Integer isActive;
+    @Column(name = "profileimage")
+    private String profileImage;
+    @Column(name = "publicimageid")
+    private String publicImageId;
 }

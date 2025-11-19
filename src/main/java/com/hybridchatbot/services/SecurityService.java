@@ -49,6 +49,8 @@ public class SecurityService {
         newUser.setBirthDate(userRequest.getBirthDate());
         newUser.setCreatedDate(LocalDateTime.now());
         newUser.setIsActive(1);
+        newUser.setProfileImage(userRequest.getProfileImageUrl());
+        newUser.setPublicImageId(userRequest.getProfileImagePublicId());
         userRepository.save(newUser);
 
         return new BaseResponse<>(200, "Registro exitoso", Optional.of(newUser));
