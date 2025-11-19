@@ -1,6 +1,7 @@
 package com.hybridchatbot.controllers;
 
 import com.hybridchatbot.models.User;
+import com.hybridchatbot.request.UserImageRequest;
 import com.hybridchatbot.request.UserRequest;
 import com.hybridchatbot.response.BaseResponse;
 import com.hybridchatbot.services.UserService;
@@ -11,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -22,6 +22,16 @@ public class UserController {
         try {
             BaseResponse<?> listado = userService.listUsers();
             return ResponseEntity.ok().body(listado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/find-user/{id}")
+    public ResponseEntity<?> findUserById(@PathVariable("id") Integer id) {
+        try {
+            BaseResponse<?> user = userService.getUserById(id);
+            return ResponseEntity.ok().body(user);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
@@ -41,6 +51,16 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id) {
         try {
             BaseResponse<?> actualizacion = userService.deleteUser(id);
+            return ResponseEntity.ok().body(actualizacion);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/update-image")
+    public ResponseEntity<?> updateImage(@Validated @RequestBody UserImageRequest  userImageRequest) {
+        try {
+            BaseResponse<?> actualizacion = userService.updateImage(userImageRequest);
             return ResponseEntity.ok().body(actualizacion);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
