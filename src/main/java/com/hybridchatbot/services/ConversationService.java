@@ -18,7 +18,7 @@ public class ConversationService {
     private ConversationRepository conversationRepository;
 
     public BaseResponse<?> listConversations(Integer userId) {
-        List<Conversation> conversations = conversationRepository.findByUserId(userId);
+        List<Conversation> conversations = conversationRepository.findByUserIdOrderByCreateDateDesc(userId);
         return new BaseResponse<>(200, "Ok", Optional.of(conversations));
     }
 

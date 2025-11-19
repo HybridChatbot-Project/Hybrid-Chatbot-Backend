@@ -12,4 +12,5 @@ public class MessageRequest {
     private Integer conversationId;
     private Integer sequence;
     private String sender;
+    private String userName;
 }

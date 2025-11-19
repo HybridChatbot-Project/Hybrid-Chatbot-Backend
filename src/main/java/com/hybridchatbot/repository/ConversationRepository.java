@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ConversationRepository extends JpaRepository<Conversation,Integer> {
-    List<Conversation> findByUserId(Integer userId);
+    List<Conversation> findByUserIdOrderByCreateDateDesc(Integer userId);
 }

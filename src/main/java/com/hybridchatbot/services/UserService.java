@@ -50,7 +50,7 @@ public class UserService {
         existed.setGenre(genre);
         existed.setPhoneNumber(userRequest.getPhoneNumber());
         existed.setBirthDate(userRequest.getBirthDate());
-        if (userRequest.getPassword() != null) {
+        if (userRequest.getPassword() != null && !userRequest.getPassword().isEmpty()) {
             existed.setUserPassword(passwordEncoder.encode(userRequest.getPassword()));
         }
 
