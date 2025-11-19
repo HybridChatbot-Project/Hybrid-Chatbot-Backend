@@ -17,16 +17,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String password;
+    @Column(name = "userpassword")
+    private String userPassword;
+    @Column(name = "lastname")
     private String lastName;
+    @Column(name="firstname")
     private String firstName;
     private String email;
+    @Column(name = "phonenumber")
     private Integer phoneNumber;
     @OneToOne()
     @JoinColumn(name = "idgenre", referencedColumnName = "id", nullable = false)
     private Genre genre;
+    @Column(name = "birthdate")
     private LocalDateTime birthDate;
+    @Column(name = "createdate")
     private LocalDateTime createdDate;
+    @Column(name = "modifieddate")
     private LocalDateTime updatedDate;
+    @Column(name = "isactive")
     private Integer isActive;
+    @Column(name = "profileimage")
+    private String profileImage;
+    @Column(name = "publicimageid")
+    private String publicImageId;
 }
