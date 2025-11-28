@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api-hybridchatbot
+spring:
+  application:
+    name: bc-hybridchatbot
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        register-enabled: true
+        service: bc-hybridchatbot
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hybridchatbot?currentSchema=hybridchatbot
+    driver-class-name: org.postgresql.Driver
+    username: chatbot
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        ejb:
+          interceptor-org
+        format_sql: true
+        globally_quoted_identifiers: true
+  mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    ##ype-aliases-package: ##sistemaliga.org.pe.ms_crm.domain.mapper
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+jwt:
+  secret: SecurityHibridChatbotSecretKeyJwt1
+  expiration: 86400000
+
+flask:
+  chatbot-url: http://localhost:5001/process-message

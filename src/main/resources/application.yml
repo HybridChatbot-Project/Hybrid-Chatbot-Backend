@@ -8,16 +8,16 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: ${NACOS_SERVER:localhost:8848}
         username: nacos
         password: nacos
         register-enabled: true
         service: bc-hybridchatbot
   datasource:
-    url: jdbc:postgresql://localhost:5432/hybridchatbot?currentSchema=hybridchatbot
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/hybridchatbot?currentSchema=hybridchatbot}
     driver-class-name: org.postgresql.Driver
-    username: chatbot
-    password: root
+    username: ${DATABASE_USERNAME:chatbot}
+    password: ${DATABASE_PASSWORD:root}
   jpa:
     properties:
       hibernate:
@@ -27,16 +27,16 @@ spring:
         globally_quoted_identifiers: true
   mybatis:
     mapper-locations: classpath:mapper/*.xml
-    ##ype-aliases-package: ##sistemaliga.org.pe.ms_crm.domain.mapper
 
-  logging:
-    level:
-      org:
-        hibernate:
-          SQL: DEBUG
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+
 jwt:
   secret: SecurityHibridChatbotSecretKeyJwt1
   expiration: 86400000
 
 flask:
-  chatbot-url: http://localhost:5001/process-message
+  chatbot-url: ${FLASK_URL:http://localhost:5001/process-message}
