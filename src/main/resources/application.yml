@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /api-hybridchatbot
 spring:
@@ -11,13 +11,13 @@ spring:
         server-addr: ${NACOS_SERVER:localhost:8848}
         username: nacos
         password: nacos
-        register-enabled: true
+        register-enabled: false
         service: bc-hybridchatbot
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/hybridchatbot?currentSchema=hybridchatbot}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
-    username: ${DATABASE_USERNAME:chatbot}
-    password: ${DATABASE_PASSWORD:root}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -25,6 +25,7 @@ spring:
           interceptor-org
         format_sql: true
         globally_quoted_identifiers: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   mybatis:
     mapper-locations: classpath:mapper/*.xml
 
@@ -35,8 +36,8 @@ logging:
         SQL: DEBUG
 
 jwt:
-  secret: SecurityHibridChatbotSecretKeyJwt1
+  secret: ${JWT_SECRET}
   expiration: 86400000
 
 flask:
-  chatbot-url: ${FLASK_URL:http://localhost:5001/process-message}
+  chatbot-url: ${FLASK_URL:https://hybridchatbot-data-processor-v2.onrender.com/process-message}
